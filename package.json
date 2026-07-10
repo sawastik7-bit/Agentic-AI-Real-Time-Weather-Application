@@ -1,0 +1,26 @@
+{
+  "name": "agentic-ai-real-time-weather-application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sawastik7-bit/Agentic-AI-Real-Time-Weather-Application.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/sawastik7-bit/Agentic-AI-Real-Time-Weather-Application/issues"
+  },
+  "homepage": "https://github.com/sawastik7-bit/Agentic-AI-Real-Time-Weather-Application#readme",
+  "dependencies": {
+    "@openrouter/sdk": "^0.13.39",
+    "dotenv": "^17.4.2",
+    "openai": "^6.46.0"
+  }
+}
