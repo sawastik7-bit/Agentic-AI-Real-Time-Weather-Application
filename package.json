@@ -20,6 +20,7 @@
   "homepage": "https://github.com/sawastik7-bit/Agentic-AI-Real-Time-Weather-Application#readme",
   "dependencies": {
     "@openrouter/sdk": "^0.13.39",
+    "axios": "^1.18.1",
     "dotenv": "^17.4.2",
     "openai": "^6.46.0"
   }
