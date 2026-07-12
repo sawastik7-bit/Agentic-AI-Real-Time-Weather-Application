@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import dotenv from 'dotenv';
+import { response } from "express";
 
 dotenv.config();
 
@@ -67,7 +68,10 @@ const tools=[
   }
 ]
 
-
+const availableTools={
+  getCurrentWeather,
+  getLocation
+};
 // now we will create a message array which will keep the track of all of our messages btw our app and open ai 
 // the first object in the array should always have the role property set to "system" which tell OPENAI that this is how we want it to behave
 
@@ -95,15 +99,15 @@ const messages=[
 
   
  const response = await client.chat.completions.create({
-  model:"google/gemma-4-31b-it:free",   
+  model:"laguna-xs-2.1:free",   
   messages:messages,
   tools:tools,
 });
 console.log(response);
  
- }
+ 
 
- agent("where i am located right now?");  // this is the user input we are providing
+  // this is the user input we are providing
  // it will give the output in the console
 
 
@@ -111,6 +115,36 @@ console.log(response);
 //  console.log(models);
 
 
-// google/gemma-4-26b-a4b-it:free
+// google/gemma-4-26b-a4b-it: // you can use this model for freee 
 
+
+
+// now turning openAI response into a function call
+
+// first create a obj of available tools
+
+const {finish_reason,message}=response.choices[0];
+
+
+
+if (finish_reason === "tool_calls" && message.tool_calls) {
+  const functionName = message.tool_calls[0].function.name;
+  const functionToCall = availableTools[functionName];
+  const functionArgs = JSON.parse(message.tool_calls[0].function.arguments);
+  const functionArgsArr = Object.values(functionArgs);
+  const functionResponse = await functionToCall.apply(null, functionArgsArr);
+  console.log(functionResponse);
+}
+
+
+messages.push({
+  role:"function",
+  name:functionName,
+  content:`The result of the last function was this : ${JSON.stringify(functionResponse)}`
+});
+
+
+ }
  
+
+ agent("where i am located right now?");
